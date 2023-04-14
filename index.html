@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Biaya Pengiriman</title>
+  <!-- Menggunakan Bootstrap untuk tampilan -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 100px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+    }
+
+    h4 {
+      text-align: center;
+      margin-top: 30px;
+    }
+    #biayaPengiriman {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2>Hitung Biaya Pengiriman</h2>
+    <form id="formPengiriman">
+      <div class="form-group">
+        <label for="lokasiPengiriman">Lokasi Pengiriman:</label>
+        <select class="form-control" id="lokasiPengiriman">
+          <option value="Jakarta">Jakarta</option>
+          <option value="Bandung">Bandung</option>
+          <option value="Surabaya">Surabaya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="beratPaket">Berat Paket (Kg):</label>
+        <input type="number" class="form-control" id="beratPaket" placeholder="Masukkan Berat Paket dalam Kg">
+      </div>
+      <button type="button" class="btn btn-primary" onclick="hitungBiayaPengiriman()">Hitung</button>
+    </form>
+    <h4 class="mt-4">Biaya Pengiriman: <span id="biayaPengiriman"></span></h4>
+  </div>
+
+  <!-- Menggunakan jQuery untuk menghandle perhitungan dan manipulasi DOM -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    function hitungBiayaPengiriman() {
+      // Mengambil nilai dari input lokasiPengiriman dan beratPaket
+      var lokasiPengiriman = $("#lokasiPengiriman").val();
+      var beratPaket = parseFloat($("#beratPaket").val());
+
+      // Memeriksa jika input beratPaket kosong atau tidak valid
+      if (isNaN(beratPaket) || beratPaket <= 0) {
+        alert("Error: Berat Paket tidak valid!");
+        return;
+      }
+
+      var biayaPengiriman = 0;
+      // Percabangan nested if untuk menghitung biaya pengiriman berdasarkan lokasi pengiriman
+      if (lokasiPengiriman === "Jakarta") {
+        biayaPengiriman = beratPaket * 5000; // Biaya pengiriman per Kg di Jakarta adalah Rp 5000
+      } else if (lokasiPengiriman === "Bandung") {
+        biayaPengiriman = beratPaket * 7000; // Biaya pengiriman per Kg di Bandung adalah Rp 7000
+      } else if (lokasiPengiriman === "Surabaya") {
+        biayaPengiriman = beratPaket * 10000; // Biaya pengiriman per Kg di Surabaya adalah Rp 10000
+      }
+
+      // Menampilkan biaya pengiriman pada elemen dengan id biayaPengiriman
+      $("#biayaPengiriman").text("Rp " + biayaPengiriman.toLocaleString());
+}
+
+  </script>
+</body>
+</html>
